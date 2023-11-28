@@ -1,0 +1,9 @@
+@server=http://localhost:4004
+
+###
+POST {{server}}/odata/v4/notification/notify
+Content-Type: application/json
+
+{
+    "recipient": "mio.fujita.01@gmail.com"
+}

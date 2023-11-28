@@ -8,12 +8,21 @@
   "dependencies": {
     "@cap-js/notifications": "^0.1.0",
     "@sap/cds": "^7",
-    "express": "^4"
+    "express": "^4",
+    "@sap/xssec": "^3",
+    "passport": "^0"
   },
   "devDependencies": {
     "sqlite3": "^5"
   },
   "scripts": {
     "start": "cds-serve"
+  },
+  "cds": {
+    "requires": {
+      "[production]": {
+        "auth": "xsuaa"
+      }
+    }
   }
 }
