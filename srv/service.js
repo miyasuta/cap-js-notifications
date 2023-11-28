@@ -2,16 +2,16 @@ const cds = require('@sap/cds')
 
 module.exports = class NotificationService extends cds.ApplicationService {
     async init() {
-        this.on('notify', async(req)=> {
+        this.after('CREATE', 'Orders', async(results, req) => {
+            console.log(results);
             const alert = await cds.connect.to('notifications');
 
             alert.notify({
-                recipients: [ req.data.recipient ],
+                recipients: [ 'mio.fujita.01@gmail.com' ],
                 priority: "HIGH", //optional
-                title: "New high priority incident is assigned to you!",
-                description: "Incident titled 'Engine overheating' created by 'customer X' with priority high is assigned to you!"
+                title: "New Order has been created!",
+                description: `Order by customer ${req.data.customer} as been created!`
               });
-
         })
         return super.init()
     }
