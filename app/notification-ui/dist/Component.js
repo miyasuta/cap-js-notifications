@@ -1,0 +1,1 @@
+sap.ui.define(["sap/fe/core/AppComponent"],function(n){"use strict";return n.extend("miyasuta.notificationui.Component",{metadata:{manifest:"json"}})});

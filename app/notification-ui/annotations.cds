@@ -1,0 +1,1 @@
+using NotificationService as service from '../../srv/service';

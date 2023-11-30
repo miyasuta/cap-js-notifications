@@ -64,12 +64,36 @@ modules:
           sap.cloud.service: cap-js-notifications
         - Authentication: OAuth2UserTokenExchange
           Name: cap_js_notifications_cap_js_notifications_auth
+          ServiceInstanceName: cap-js-notifications-auth
           ServiceKeyName: cap-js-notifications-auth-key
           sap.cloud.service: cap-js-notifications
-          ServiceInstanceName: cap-js-notifications-auth
         existing_destinations_policy: update
   build-parameters:
     no-source: true
+- name: cap-js-notifications-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: cap-js-notifications_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - miyasutanotificationui.zip
+      name: miyasutanotificationui
+      target-path: resources/
+- name: miyasutanotificationui
+  type: html5
+  path: app/notification-ui
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: cap-js-notifications-auth
   type: org.cloudfoundry.managed-service
@@ -88,6 +112,17 @@ resources:
 - name: cap-js-notifications-destination
   type: org.cloudfoundry.managed-service
   parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
     service: destination
     service-plan: lite
 - name: cap-js-notifications_html_repo_host
@@ -97,6 +132,7 @@ resources:
     service-name: cap-js-notifications-html5-app-host-service
     service-plan: app-host
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
