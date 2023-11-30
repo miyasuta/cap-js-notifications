@@ -10,9 +10,11 @@
     "@sap/cds": "^7",
     "express": "^4",
     "@sap/xssec": "^3",
-    "passport": "^0"
+    "passport": "^0",
+    "@sap/cds-hana": "^2"
   },
   "devDependencies": {
+    "@sap/cds-dk": "^7",
     "sqlite3": "^5"
   },
   "scripts": {
@@ -21,7 +23,8 @@
   "cds": {
     "requires": {
       "[production]": {
-        "auth": "xsuaa"
+        "auth": "xsuaa",
+        "db": "hana"
       }
     }
   }
