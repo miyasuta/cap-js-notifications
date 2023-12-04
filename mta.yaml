@@ -16,6 +16,7 @@ modules:
       srv-url: ${default-url}
   parameters:
     buildpack: nodejs_buildpack
+    disk-quota: 2G
   build-parameters:
     builder: npm
 - name: cap-js-notifications-db-deployer
@@ -37,7 +38,7 @@ modules:
     no-start: true
     tasks:
     - command: node node_modules/@cap-js/notifications/lib/content-deployment.js
-      disk-quota: 256MB
+      disk-quota: 2GB
       memory: 256MB
       name: notification-content-deployment
 - name: cap-js-notifications-destination-content
